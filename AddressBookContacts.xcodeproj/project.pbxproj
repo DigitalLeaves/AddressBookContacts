@@ -12,6 +12,14 @@
 		6624EE241CC8161B005B6E6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6624EE221CC8161B005B6E6B /* Main.storyboard */; };
 		6624EE261CC8161B005B6E6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6624EE251CC8161B005B6E6B /* Assets.xcassets */; };
 		6624EE291CC8161B005B6E6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6624EE271CC8161B005B6E6B /* LaunchScreen.storyboard */; };
+		6624EE341CC81BBF005B6E6B /* AddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6624EE331CC81BBF005B6E6B /* AddressBookViewController.swift */; };
+		6624EE361CC81BC8005B6E6B /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6624EE351CC81BC8005B6E6B /* ContactsViewController.swift */; };
+		6624EE391CC81BF0005B6E6B /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6624EE371CC81BF0005B6E6B /* ContactTableViewCell.swift */; };
+		6624EE3A1CC81BF0005B6E6B /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6624EE381CC81BF0005B6E6B /* ContactTableViewCell.xib */; };
+		6624EE3D1CC82408005B6E6B /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6624EE3C1CC82408005B6E6B /* UIViewController+Alerts.swift */; };
+		6624EE401CC824C7005B6E6B /* ContactEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6624EE3F1CC824C7005B6E6B /* ContactEntry.swift */; };
+		6624EE421CC8BA53005B6E6B /* String+Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6624EE411CC8BA53005B6E6B /* String+Email.swift */; };
+		66406E461CC96C50003F528E /* CreateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66406E451CC96C50003F528E /* CreateContactViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +30,14 @@
 		6624EE251CC8161B005B6E6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6624EE281CC8161B005B6E6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6624EE2A1CC8161B005B6E6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6624EE331CC81BBF005B6E6B /* AddressBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookViewController.swift; sourceTree = "<group>"; };
+		6624EE351CC81BC8005B6E6B /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		6624EE371CC81BF0005B6E6B /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		6624EE381CC81BF0005B6E6B /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
+		6624EE3C1CC82408005B6E6B /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
+		6624EE3F1CC824C7005B6E6B /* ContactEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactEntry.swift; sourceTree = "<group>"; };
+		6624EE411CC8BA53005B6E6B /* String+Email.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Email.swift"; sourceTree = "<group>"; };
+		66406E451CC96C50003F528E /* CreateContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateContactViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +70,62 @@
 		6624EE1D1CC8161B005B6E6B /* AddressBookContacts */ = {
 			isa = PBXGroup;
 			children = (
-				6624EE1E1CC8161B005B6E6B /* AppDelegate.swift */,
-				6624EE201CC8161B005B6E6B /* ViewController.swift */,
-				6624EE221CC8161B005B6E6B /* Main.storyboard */,
-				6624EE251CC8161B005B6E6B /* Assets.xcassets */,
-				6624EE271CC8161B005B6E6B /* LaunchScreen.storyboard */,
-				6624EE2A1CC8161B005B6E6B /* Info.plist */,
+				6624EE3E1CC824B5005B6E6B /* Model */,
+				6624EE3B1CC823F7005B6E6B /* Categories */,
+				6624EE321CC81BA9005B6E6B /* View Controllers */,
+				6624EE311CC81B26005B6E6B /* Views and storyboards */,
+				6624EE301CC81B16005B6E6B /* App and resources */,
 			);
 			path = AddressBookContacts;
+			sourceTree = "<group>";
+		};
+		6624EE301CC81B16005B6E6B /* App and resources */ = {
+			isa = PBXGroup;
+			children = (
+				6624EE1E1CC8161B005B6E6B /* AppDelegate.swift */,
+				6624EE251CC8161B005B6E6B /* Assets.xcassets */,
+				6624EE2A1CC8161B005B6E6B /* Info.plist */,
+			);
+			name = "App and resources";
+			sourceTree = "<group>";
+		};
+		6624EE311CC81B26005B6E6B /* Views and storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6624EE221CC8161B005B6E6B /* Main.storyboard */,
+				6624EE271CC8161B005B6E6B /* LaunchScreen.storyboard */,
+				6624EE371CC81BF0005B6E6B /* ContactTableViewCell.swift */,
+				6624EE381CC81BF0005B6E6B /* ContactTableViewCell.xib */,
+			);
+			name = "Views and storyboards";
+			sourceTree = "<group>";
+		};
+		6624EE321CC81BA9005B6E6B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6624EE201CC8161B005B6E6B /* ViewController.swift */,
+				6624EE331CC81BBF005B6E6B /* AddressBookViewController.swift */,
+				6624EE351CC81BC8005B6E6B /* ContactsViewController.swift */,
+				66406E451CC96C50003F528E /* CreateContactViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		6624EE3B1CC823F7005B6E6B /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				6624EE3C1CC82408005B6E6B /* UIViewController+Alerts.swift */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		6624EE3E1CC824B5005B6E6B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6624EE3F1CC824C7005B6E6B /* ContactEntry.swift */,
+				6624EE411CC8BA53005B6E6B /* String+Email.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,6 +186,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6624EE3A1CC81BF0005B6E6B /* ContactTableViewCell.xib in Resources */,
 				6624EE291CC8161B005B6E6B /* LaunchScreen.storyboard in Resources */,
 				6624EE261CC8161B005B6E6B /* Assets.xcassets in Resources */,
 				6624EE241CC8161B005B6E6B /* Main.storyboard in Resources */,
@@ -135,8 +200,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6624EE341CC81BBF005B6E6B /* AddressBookViewController.swift in Sources */,
+				6624EE3D1CC82408005B6E6B /* UIViewController+Alerts.swift in Sources */,
+				66406E461CC96C50003F528E /* CreateContactViewController.swift in Sources */,
+				6624EE391CC81BF0005B6E6B /* ContactTableViewCell.swift in Sources */,
+				6624EE361CC81BC8005B6E6B /* ContactsViewController.swift in Sources */,
 				6624EE211CC8161B005B6E6B /* ViewController.swift in Sources */,
+				6624EE401CC824C7005B6E6B /* ContactEntry.swift in Sources */,
 				6624EE1F1CC8161B005B6E6B /* AppDelegate.swift in Sources */,
+				6624EE421CC8BA53005B6E6B /* String+Email.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +322,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AddressBookContacts/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Ignacio-Nieto-Carvajal.AddressBookContacts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -261,6 +334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AddressBookContacts/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Ignacio-Nieto-Carvajal.AddressBookContacts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -286,6 +360,7 @@
 				6624EE2F1CC8161B005B6E6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

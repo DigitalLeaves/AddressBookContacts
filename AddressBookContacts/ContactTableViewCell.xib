@@ -1,18 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ContactTableViewCell" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="ContactTableViewCell" customModule="AddressBookContacts" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="420" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="420" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gmg-X8-CPA">
+                        <rect key="frame" x="8" y="8" width="63" height="63"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="gmg-X8-CPA" secondAttribute="height" multiplier="1:1" id="mfb-yb-uPh"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fq-fb-kmG">
+                        <rect key="frame" x="79" y="8" width="333" height="21"/>
+                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aGt-gF-mQk">
+                        <rect key="frame" x="79" y="55" width="163" height="16"/>
+                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="10"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hoj-xJ-jF1">
+                        <rect key="frame" x="250" y="55" width="162" height="16"/>
+                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="10"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aGt-gF-mQk" firstAttribute="leading" secondItem="gmg-X8-CPA" secondAttribute="trailing" constant="8" id="112-Jo-wpa"/>
+                    <constraint firstItem="9fq-fb-kmG" firstAttribute="leading" secondItem="gmg-X8-CPA" secondAttribute="trailing" constant="8" id="5M7-8j-Gqp"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="9fq-fb-kmG" secondAttribute="trailing" id="DT6-BD-Jge"/>
+                    <constraint firstItem="gmg-X8-CPA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="GFD-ne-5og"/>
+                    <constraint firstItem="Hoj-xJ-jF1" firstAttribute="bottom" secondItem="gmg-X8-CPA" secondAttribute="bottom" id="Rsj-bc-hrc"/>
+                    <constraint firstItem="9fq-fb-kmG" firstAttribute="top" secondItem="gmg-X8-CPA" secondAttribute="top" id="dDz-wS-y1q"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Hoj-xJ-jF1" secondAttribute="trailing" id="hVr-v0-Igb"/>
+                    <constraint firstItem="gmg-X8-CPA" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="khJ-VM-OA6"/>
+                    <constraint firstItem="gmg-X8-CPA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="mNE-Sl-QOE"/>
+                    <constraint firstItem="aGt-gF-mQk" firstAttribute="bottom" secondItem="gmg-X8-CPA" secondAttribute="bottom" id="os7-JE-X4P"/>
+                    <constraint firstItem="Hoj-xJ-jF1" firstAttribute="width" secondItem="aGt-gF-mQk" secondAttribute="width" id="wQ8-Wi-CU0"/>
+                    <constraint firstItem="Hoj-xJ-jF1" firstAttribute="leading" secondItem="aGt-gF-mQk" secondAttribute="trailing" constant="8" id="y8r-Da-ykS"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="contactEmailLabel" destination="aGt-gF-mQk" id="acV-sF-JmG"/>
+                <outlet property="contactImageView" destination="gmg-X8-CPA" id="5NW-04-F3E"/>
+                <outlet property="contactNameLabel" destination="9fq-fb-kmG" id="fYB-Tm-rwR"/>
+                <outlet property="contactPhoneLabel" destination="Hoj-xJ-jF1" id="C2d-2G-HNw"/>
+            </connections>
+            <point key="canvasLocation" x="330" y="361"/>
         </tableViewCell>
     </objects>
 </document>

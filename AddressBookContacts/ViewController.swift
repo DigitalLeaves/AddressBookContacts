@@ -20,6 +20,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func addressBookFramework(sender: AnyObject) {
+        self.performSegueWithIdentifier("AddressBookFramework", sender: sender)
+    }
+    
+    @IBAction func contactsFramework(sender: AnyObject) {
+        if #available(iOS 9, *) {
+            self.performSegueWithIdentifier("ContactsFramework", sender: sender)
+        } else {
+            self.showAlertMessage("Sorry, only available for iOS 9 and up.")
+        }
+    }
 }
 
