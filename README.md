@@ -14,11 +14,13 @@ Our sample application it's a really simple app with three main screens. The fir
 
 We will set our application for targeting iOS 8+ devices, and we will use the #available(...) directive to
 
+```
 if #available(iOS 9, *) {
    callContactFrameworkRelatedFunctions(parameters)
 } else {
    self.showAlertMessage("Sorry, you can only use the Contacts framework from iOS 9.")
 }
+```
 
 The first screen is just two buttons that will take us to either our AddressBookViewController (that will use the old, C-Style AddressBook framework) or the ContactsViewController (that will use the new Contacts framework). Both of them will have a "Create" button to create a new contact, that will take us to the CreateContactViewController. This contact will handle the creation in both frameworks.
 
