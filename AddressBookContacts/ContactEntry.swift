@@ -28,21 +28,21 @@ class ContactEntry: NSObject {
 
         // get AddressBook references (old-style)
         guard let nameRef = ABRecordCopyCompositeName(addressBookEntry)?.takeRetainedValue() else { return nil }
-        
+
         // name
         self.name = nameRef as String
         
         // emails
         if let emailsMultivalueRef = ABRecordCopyValue(addressBookEntry, kABPersonEmailProperty)?.takeRetainedValue(), let emailsRef = ABMultiValueCopyArrayOfAllValues(emailsMultivalueRef)?.takeRetainedValue() {
             let emailsArray = emailsRef as NSArray
-            for possibleEmail in emailsArray { if let properEmail = possibleEmail as? String where properEmail.isEmail() { self.email = properEmail; break } }
+            for possibleEmail in emailsArray { if let properEmail = possibleEmail as? String , properEmail.isEmail() { self.email = properEmail; break } }
         }
 
 
         // image
         var image: UIImage?
         if ABPersonHasImageData(addressBookEntry) {
-            image = UIImage(data: ABPersonCopyImageData(addressBookEntry).takeRetainedValue() as NSData)
+            image = UIImage(data: ABPersonCopyImageData(addressBookEntry).takeRetainedValue() as Data)
         }
         self.image = image ?? UIImage(named: "defaultUser")
 
@@ -58,17 +58,20 @@ class ContactEntry: NSObject {
     init?(cnContact: CNContact) {
         // name
         if !cnContact.isKeyAvailable(CNContactGivenNameKey) && !cnContact.isKeyAvailable(CNContactFamilyNameKey) { return nil }
-        self.name = (cnContact.givenName + " " + cnContact.familyName).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        self.name = (cnContact.givenName + " " + cnContact.familyName).trimmingCharacters(in: CharacterSet.whitespaces)
         // image
         self.image = (cnContact.isKeyAvailable(CNContactImageDataKey) && cnContact.imageDataAvailable) ? UIImage(data: cnContact.imageData!) : nil
         // email
         if cnContact.isKeyAvailable(CNContactEmailAddressesKey) {
-            for possibleEmail in cnContact.emailAddresses { if let properEmail = possibleEmail.value as? String where properEmail.isEmail() { self.email = properEmail; break } }
+            for possibleEmail in cnContact.emailAddresses {
+                let properEmail = possibleEmail.value as String
+                if properEmail.isEmail() { self.email = properEmail; break }
+            }
         }
         // phone 
         if cnContact.isKeyAvailable(CNContactPhoneNumbersKey) {
             if cnContact.phoneNumbers.count > 0 {
-                let phone = cnContact.phoneNumbers.first?.value as? CNPhoneNumber
+                let phone = cnContact.phoneNumbers.first?.value
                 self.phone = phone?.stringValue
             }
         }

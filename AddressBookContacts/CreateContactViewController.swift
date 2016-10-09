@@ -11,8 +11,8 @@ import Contacts
 import AddressBook
 
 enum ContactType {
-    case AddressBookContact
-    case CNContact
+    case addressBookContact
+    case cnContact
 }
 
 class CreateContactViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -33,7 +33,7 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         contactImageView.layer.cornerRadius = contactImageView.frame.size.width / 2.0
         contactImageView.layer.masksToBounds = true
@@ -44,15 +44,15 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         // Dispose of any resources that can be recreated.
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
     // create contact
-    func createAddressBookContactWithFirstName(firstName: String, lastName: String, email: String?, phone: String?, image: UIImage?) {
+    func createAddressBookContactWithFirstName(_ firstName: String, lastName: String, email: String?, phone: String?, image: UIImage?) {
         // first check permissions.
         let abAuthStatus = ABAddressBookGetAuthorizationStatus()
-        if abAuthStatus == .Denied || abAuthStatus == .Restricted {
+        if abAuthStatus == .denied || abAuthStatus == .restricted {
             self.showAlertMessage("Sorry, you are not authorize to access the contacts.")
             return
         }
@@ -60,7 +60,7 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         // get addressbook reference.
         let addressBookRef = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
         // now let's create the contact.
-        let newContact: ABRecordRef = ABPersonCreate().takeRetainedValue()
+        let newContact: ABRecord = ABPersonCreate().takeRetainedValue()
         
         // first name
         if !ABRecordSetValue(newContact, kABPersonFirstNameProperty, firstName as CFTypeRef, nil) {
@@ -76,7 +76,7 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         if email != nil {
             let emails: ABMutableMultiValue =
                 ABMultiValueCreateMutable(ABPropertyType(kABMultiStringPropertyType)).takeRetainedValue()
-            ABMultiValueAddValueAndLabel(emails, email!, kABHomeLabel, nil)
+            ABMultiValueAddValueAndLabel(emails, email! as CFTypeRef!, kABHomeLabel, nil)
             if !ABRecordSetValue(newContact, kABPersonEmailProperty, emails, nil) {
                 self.showAlertMessage("Error setting email for the new contact")
                 return
@@ -88,7 +88,7 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         if phone != nil {
             let phoneNumbers: ABMutableMultiValue =
                 ABMultiValueCreateMutable(ABPropertyType(kABMultiStringPropertyType)).takeRetainedValue()
-            ABMultiValueAddValueAndLabel(phoneNumbers, phone, kABPersonPhoneMainLabel, nil)
+            ABMultiValueAddValueAndLabel(phoneNumbers, phone! as CFTypeRef!, kABPersonPhoneMainLabel, nil)
             if !ABRecordSetValue(newContact, kABPersonPhoneProperty, phoneNumbers, nil) {
                 self.showAlertMessage("Error setting phone number for the new contact")
                 return
@@ -98,7 +98,7 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         // image
         if image != nil {
             let imageData = UIImageJPEGRepresentation(image!, 0.9)
-            if !ABPersonSetImageData(newContact, imageData, nil) {
+            if !ABPersonSetImageData(newContact, imageData as CFData!, nil) {
                 self.showAlertMessage("Error setting image for the new contact")
                 return
             }
@@ -115,11 +115,11 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         }
                     
         if errorSavingContact { self.showAlertMessage("There was an error storing your new contact. Please try again.") }
-        else { self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil) }
+        else { self.presentingViewController?.dismiss(animated: true, completion: nil) }
     }
 
     @available(iOS 9.0, *)
-    func createCNContactWithFirstName(firstName: String, lastName: String, email: String?, phone: String?, image: UIImage?) {
+    func createCNContactWithFirstName(_ firstName: String, lastName: String, email: String?, phone: String?, image: UIImage?) {
         // create contact with mandatory values: first and last name
         let newContact = CNMutableContact()
         newContact.givenName = firstName
@@ -127,7 +127,7 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         
         // email
         if email != nil {
-            let contactEmail = CNLabeledValue(label: CNLabelHome, value: email!)
+            let contactEmail = CNLabeledValue(label: CNLabelHome, value: email! as NSString)
             newContact.emailAddresses = [contactEmail]
         }
         // phone
@@ -143,25 +143,25 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         
         do {
             let newContactRequest = CNSaveRequest()
-            newContactRequest.addContact(newContact, toContainerWithIdentifier: nil)
-            try CNContactStore().executeSaveRequest(newContactRequest)
-            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            newContactRequest.add(newContact, toContainerWithIdentifier: nil)
+            try CNContactStore().execute(newContactRequest)
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
         } catch {
             self.showAlertMessage("I was unable to create the new contact. An error occurred.")
         }
     }
     
     // MARK: - Button actions
-    @IBAction func createContact(sender: AnyObject) {
+    @IBAction func createContact(_ sender: AnyObject) {
         // check if we can create a contact.
-        if let firstName = firstNameTextfield.text where firstName.characters.count > 0,
-            let lastName = lastNameTextfield.text where lastName.characters.count > 0 {
+        if let firstName = firstNameTextfield.text , firstName.characters.count > 0,
+            let lastName = lastNameTextfield.text , lastName.characters.count > 0 {
             let email = emailAddressTextfield.text
             let phone = phoneNumberTextfield.text
             
-            if type == .AddressBookContact {
+            if type == .addressBookContact {
                 createAddressBookContactWithFirstName(firstName, lastName: lastName, email: email, phone: phone, image: contactImage)
-            } else if type == .CNContact {
+            } else if type == .cnContact {
                 if #available(iOS 9, *) {
                     createCNContactWithFirstName(firstName, lastName: lastName, email: email, phone: phone, image: contactImage)
                 } else {
@@ -174,25 +174,25 @@ class CreateContactViewController: UIViewController, UIImagePickerControllerDele
         }
     }
     
-    @IBAction func changeContactImage(sender: AnyObject) {
+    @IBAction func changeContactImage(_ sender: AnyObject) {
         let picker = UIImagePickerController()
         
         picker.delegate = self
-        picker.sourceType = .PhotoLibrary
+        picker.sourceType = .photoLibrary
         picker.allowsEditing = true
         
-        presentViewController(picker, animated: true, completion: nil)
+        present(picker, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.contactImage = info[UIImagePickerControllerEditedImage] as? UIImage
         self.contactImageView.image = self.contactImage
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
-    @IBAction func goBack(sender: AnyObject) {
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func goBack(_ sender: AnyObject) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
 }

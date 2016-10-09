@@ -12,8 +12,8 @@ extension String {
     
     func isEmail() -> Bool {
         do {
-            let regex = try NSRegularExpression(pattern: "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]+$", options: NSRegularExpressionOptions.CaseInsensitive)
-            return regex.firstMatchInString(self, options: [], range: NSMakeRange(0, self.characters.count)) != nil
+            let regex = try NSRegularExpression(pattern: "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]+$", options: NSRegularExpression.Options.caseInsensitive)
+            return regex.firstMatch(in: self, options: [], range: NSMakeRange(0, self.characters.count)) != nil
         } catch { return false }
     }
     

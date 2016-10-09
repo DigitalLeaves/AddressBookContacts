@@ -22,7 +22,7 @@ class ContactTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -38,7 +38,7 @@ class ContactTableViewCell: UITableViewCell {
         setCircularAvatar()
     }
     
-    func configureWithContactEntry(contact: ContactEntry) {
+    func configureWithContactEntry(_ contact: ContactEntry) {
         contactNameLabel.text = contact.name
         contactEmailLabel.text = contact.email ?? ""
         contactPhoneLabel.text = contact.phone ?? ""

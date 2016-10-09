@@ -8,6 +8,26 @@
 
 import UIKit
 import AddressBook
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class AddressBookViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // outlets
@@ -20,19 +40,19 @@ class AddressBookViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.registerNib(UINib(nibName: "ContactTableViewCell", bundle: nil), forCellReuseIdentifier: "ContactTableViewCell")
+        tableView.register(UINib(nibName: "ContactTableViewCell", bundle: nil), forCellReuseIdentifier: "ContactTableViewCell")
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // initial appearance
-        tableView.hidden = true
-        noContactsLabel.hidden = false
+        tableView.isHidden = true
+        noContactsLabel.isHidden = false
         noContactsLabel.text = "Retrieving contacts..."
 
         retrieveAddressBookContacts { (success, contacts) in
-            self.tableView.hidden = !success
-            self.noContactsLabel.hidden = success
+            self.tableView.isHidden = !success
+            self.noContactsLabel.isHidden = success
             if success && contacts?.count > 0 {
                 self.contacts = contacts!
                 self.tableView.reloadData()
@@ -47,32 +67,33 @@ class AddressBookViewController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func goBack(sender: AnyObject) {
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func goBack(_ sender: AnyObject) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func createNewContact(sender: AnyObject) {
-        self.performSegueWithIdentifier("CreateContact", sender: sender)
+    @IBAction func createNewContact(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "CreateContact", sender: sender)
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let dvc = segue.destinationViewController as? CreateContactViewController {
-            dvc.type = .AddressBookContact
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dvc = segue.destination as? CreateContactViewController {
+            dvc.type = .addressBookContact
         }
     }
     
     // AddressBook methods
-    func retrieveAddressBookContacts(completion: (success: Bool, contacts: [ContactEntry]?) -> Void) {
+    func retrieveAddressBookContacts(_ completion: @escaping (_ success: Bool, _ contacts: [ContactEntry]?) -> Void) {
         let abAuthStatus = ABAddressBookGetAuthorizationStatus()
-        if abAuthStatus == .Denied || abAuthStatus == .Restricted {
-            completion(success: false, contacts: nil)
+        if abAuthStatus == .denied || abAuthStatus == .restricted {
+            completion(false, nil)
             return
         }
         
         let addressBookRef = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
+        
         ABAddressBookRequestAccessWithCompletion(addressBookRef) {
-            (granted: Bool, error: CFError!) in
-            dispatch_async(dispatch_get_main_queue()) {
+            (granted: Bool, error: CFError?) in
+            DispatchQueue.main.async {
                 if !granted {
                     self.showAlertMessage("Sorry, you have no permission for accessing the address book contacts.")
                 } else {
@@ -81,20 +102,20 @@ class AddressBookViewController: UIViewController, UITableViewDelegate, UITableV
                     for abPerson in abPeople {
                         if let contact = ContactEntry(addressBookEntry: abPerson) { contacts.append(contact) }
                     }
-                    completion(success: true, contacts: contacts)
+                    completion(true, contacts)
                 }
             }
         }
     }
     
     // UITableViewDataSource && Delegate methods
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ContactTableViewCell", forIndexPath: indexPath) as! ContactTableViewCell
-        let entry = contacts[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableViewCell", for: indexPath) as! ContactTableViewCell
+        let entry = contacts[(indexPath as NSIndexPath).row]
         cell.configureWithContactEntry(entry)
         cell.layoutIfNeeded()
         return cell
