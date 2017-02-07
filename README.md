@@ -10,7 +10,7 @@ In this project, we are going to delve into both frameworks and compare them in 
 
 Our sample application it's a really simple app with three main screens. The first one will allow us to choose between using the AddressBook or Contacts frameworks. The second screen will retrieve our device's contacts and show them in a (more or less) fancy way, and the third one will allow us to create a new contact.
 
-![](http://digitalleaves.com/blog/wp-content/uploads/2016/04/contactsApp.jpg)
+![](http://digitalleaves.com/wp-content/uploads/2016/04/contactsApp.jpg)
 
 We will set our application for targeting iOS 8+ devices, and we will use the #available(...) directive to
 
@@ -24,7 +24,7 @@ if #available(iOS 9, *) {
 
 The first screen is just two buttons that will take us to either our AddressBookViewController (that will use the old, C-Style AddressBook framework) or the ContactsViewController (that will use the new Contacts framework). Both of them will have a "Create" button to create a new contact, that will take us to the CreateContactViewController. This contact will handle the creation in both frameworks.
 
-![](http://digitalleaves.com/blog/wp-content/uploads/2016/04/appStructure-1024x524.png)
+![](http://digitalleaves.com/wp-content/uploads/2016/04/appStructure-1024x524.png)
 
 # License
 The MIT License (MIT)
